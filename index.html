@@ -25,6 +25,22 @@
     </div>
     <div class="row">
       <div class="col-3">
+        <form class="form-inline">
+          <input
+            class="form-control mr-sm-2"
+            id="searchBar"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button
+            class="btn btn-outline-primary my-2 my-sm-0"
+            id="searchBtn"
+            type="submit"
+          >
+            <i class="fas fa-bolt"></i>
+          </button>
+        </form>
         <div
           class="nav flex-column nav-pills"
           id="v-pills-tab"
@@ -39,7 +55,7 @@
             role="tab"
             aria-controls="v-pills-home"
             aria-selected="true"
-            >Home</a
+            >Current Location</a
           >
           <a
             class="nav-link"
@@ -49,7 +65,7 @@
             role="tab"
             aria-controls="v-pills-profile"
             aria-selected="false"
-            >Profile</a
+            >Bujumbura</a
           >
           <a
             class="nav-link"
@@ -59,7 +75,7 @@
             role="tab"
             aria-controls="v-pills-messages"
             aria-selected="false"
-            >Messages</a
+            >Reykjavik</a
           >
           <a
             class="nav-link"
@@ -69,7 +85,7 @@
             role="tab"
             aria-controls="v-pills-settings"
             aria-selected="false"
-            >Settings</a
+            >Tokyo</a
           >
         </div>
       </div>
@@ -81,7 +97,7 @@
             role="tabpanel"
             aria-labelledby="v-pills-home-tab"
           >
-            ...
+            <p>Test Text</p>
           </div>
           <div
             class="tab-pane fade"
@@ -89,7 +105,7 @@
             role="tabpanel"
             aria-labelledby="v-pills-profile-tab"
           >
-            ...
+            <h1>more test text</h1>
           </div>
           <div
             class="tab-pane fade"
