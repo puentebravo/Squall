@@ -29,6 +29,11 @@ $(document).ready(function () {
         );
         var navLink = $("<a>").addClass("nav-link");
         var tabText = $("<div>").addClass("tab-pane fade");
+        var cwHeader = $("<h1>").addClass("text-center");
+        var cwTempPara = $("<p>").addClass("text-left");
+        var cwFeelsLike = $("<p>").addClass("text-left");
+        var cwHumid = $("<p>").addClass("text-left");
+        var cwWind = $("<p>").addClass("text-left");
 
         $("#v-pills-tab").prepend(navLink);
         $(".tab-content").prepend(tabText);
@@ -38,10 +43,18 @@ $(document).ready(function () {
         navLink.attr("role", "tab");
         navLink.attr("data-toggle", "pill");
         navLink.attr("href", "#v-pills-" + searchText);
-        navLink.text(searchText);
-        tabText.append("<h1>" + searchText + ", " + cDate + "</h1>");
-        tabText.append(weatherIcon);
-        tabText.append("");
+        navLink.text(weatherData.name);
+        tabText.append(cwHeader);
+        cwHeader.text(weatherData.name + ", " + cDate);
+        cwHeader.append(weatherIcon);
+        tabText.append(cwTempPara);
+        cwTempPara.text("Temperature: " + weatherData.main.temp + "°C");
+        tabText.append(cwFeelsLike);
+        cwFeelsLike.text("Feels Like: " + weatherData.main.feels_like + "°C");
+        tabText.append(cwHumid);
+        cwHumid.text("Humidty: " + weatherData.main.humidity + "%");
+        tabText.append(cwWind);
+        cwWind.text("Wind Speed: " + weatherData.wind.speed + " KPH");
 
         console.log(cityLat);
         console.log(cityLong);
@@ -59,6 +72,7 @@ $(document).ready(function () {
           success: function (uvData) {
             console.log(uvData);
             //Need to print this below the current weather, inside a color coded box. Need a conditional statement to determine how the value impacts the color of the box.
+            //use the code you got from Andrew to write your if/then statement
           },
         });
       },
