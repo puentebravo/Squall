@@ -1,5 +1,11 @@
 $(document).ready(function () {
   var apiKey = "e5c644d8a9d3a1a36fe10a2c8c8934c4";
+  var cDate = luxon.DateTime.local().toLocaleString({
+    month: "short",
+    day: "2-digit",
+  });
+  console.log(cDate);
+
   $("#searchBtn").click(function (e) {
     e.preventDefault();
     var searchText = $("#searchBar").val();
@@ -15,6 +21,12 @@ $(document).ready(function () {
       success: function (weatherData) {
         var cityLat = weatherData.coord.lat;
         var cityLong = weatherData.coord.lon;
+        var weatherIcon = $("<img>").attr(
+          "src",
+          "http://openweathermap.org/img/wn/" +
+            weatherData.weather[0].icon +
+            "@2x.png"
+        );
         var navLink = $("<a>").addClass("nav-link");
         var tabText = $("<div>").addClass("tab-pane fade");
 
@@ -27,7 +39,9 @@ $(document).ready(function () {
         navLink.attr("data-toggle", "pill");
         navLink.attr("href", "#v-pills-" + searchText);
         navLink.text(searchText);
-        tabText.text("This is working.");
+        tabText.append("<h1>" + searchText + ", " + cDate + "</h1>");
+        tabText.append(weatherIcon);
+        tabText.append("");
 
         console.log(cityLat);
         console.log(cityLong);
