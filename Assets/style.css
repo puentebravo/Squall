@@ -7,3 +7,19 @@ body {
   background-color: rgb(48, 46, 46);
   color: white;
 }
+
+.low {
+  background-color: green;
+}
+
+.medium {
+  background-color: yellow;
+}
+
+.high {
+  background-color: red;
+}
+
+.extreme {
+  background-color: magenta;
+}
