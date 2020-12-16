@@ -71,6 +71,7 @@ $(document).ready(function () {
           method: "GET",
           success: function (uvData) {
             console.log(uvData);
+            var cwUV = $("<p>").addClass("text-left");
             //Need to print this below the current weather, inside a color coded box. Need a conditional statement to determine how the value impacts the color of the box.
             //use the code you got from Andrew to write your if/then statement
           },
