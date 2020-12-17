@@ -4,7 +4,7 @@ $(document).ready(function () {
     month: "short",
     day: "2-digit",
   });
-  console.log(cDate);
+ 
 
   $("#searchBtn").click(function (e) {
     e.preventDefault();
@@ -14,7 +14,7 @@ $(document).ready(function () {
       searchText +
       "&units=metric&appid=" +
       apiKey;
-    // current weather data call.
+    
     $.ajax({
       url: queryUrl1,
       method: "GET",
@@ -55,11 +55,9 @@ $(document).ready(function () {
         cwHumid.text("Humidty: " + weatherData.main.humidity + "%");
         tabText.append(cwWind);
         cwWind.text("Wind Speed: " + weatherData.wind.speed + " KPH");
-
-        console.log(cityLat);
-        console.log(cityLong);
-        //place UV data AJAX call within this one
-        console.log(weatherData);
+          console.log(weatherData)
+        
+      
         $.ajax({
           url:
             "https://api.openweathermap.org/data/2.5/onecall?lat=" +
@@ -70,7 +68,7 @@ $(document).ready(function () {
             apiKey,
           method: "GET",
           success: function (uvData) {
-            console.log(uvData);
+            
             var cwUV = $("<p>").addClass("text-left");
             var uvSpan = $("<span>").addClass("text-left");
             var uvIndex = uvData.current.uvi;
@@ -81,41 +79,51 @@ $(document).ready(function () {
 
             if (uvIndex < 5) {
               uvSpan.addClass("low");
-              console.log("Suncreen recommended.")
-            } else if (uvIndex > 5 && uvIndex < 8) {
-              console.log("Maybe don't stay out long")
+            } else if (uvIndex > 5 && uvIndex < 8) {              
               uvSpan.removeClass("low");
               uvSpan.addClass("medium");
               uvSpan.css("color", "black")
             } else if (uvIndex > 8 && uvIndex < 10) {
-              console.log("Alright, stick to the shade")
               uvSpan.removeClass("low");
               uvSpan.removeClass("medium");
               uvSpan.addClass("high")
             } else {
-              console.log("you know what, just stay indoors.")
               uvSpan.removeClass("high");
               uvSpan.removeClass("medium");
               uvSpan.removeClass("low");
               uvSpan.addClass("extreme");
             }
             
-            //Need to print this below the current weather, inside a color coded box. Need a conditional statement to determine how the value impacts the color of the box.
-            //use the code you got from Andrew to write your if/then statement
+            $.ajax({
+              url:
+                "https://api.openweathermap.org/data/2.5/forecast?q=" +
+                searchText +
+                "&units=metric&appid=" +
+                apiKey,
+              method: "GET",
+              success: function (forcast) {
+                var cDeck = $("<div>").addClass("card-deck")
+                tabText.append(cDeck)
+                console.log(forcast);
+               for (i = 0; i < forcast.list.length; i += 8) {
+                 var forCard = $("<div>").addClass("card")
+                 var cBody = $("<div>").addClass("card-body")
+                 var cTitle = $("<h5>").addClass("card-title")
+        
+                 var cIcon = $("<img>").attr("src", "http://openweathermap.org/img/wn/" +
+                 forcast.list[i].weather[0].icon +
+                 "@2x.png" )
+                 var tempText = $("<p>").addClass("card-text")
+                 var feelText = $("<p>").addClass("card-text")
+                 cDeck.append(forCard);
+                 forCard.append(cBody);
+                 cBody.append(cTitle);
+                 cTitle.text("This is working")
+               }
+              },
+            });
           },
         });
-      },
-    });
-    $.ajax({
-      url:
-        "https://api.openweathermap.org/data/2.5/forecast?q=" +
-        searchText +
-        "&units=metric&appid=" +
-        apiKey,
-      method: "GET",
-      success: function (forcast) {
-        console.log(forcast);
-        //need to write a loop that shows every 8th entry going from 0: 0, 15, and so on. Basically, i + 8 in a for loop. This will make each result be from the same time of day from when the API was called. You'll need to dynamically create cards in JQUERY, then print the cards to the HTML.
       },
     });
   });
