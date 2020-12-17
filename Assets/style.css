@@ -10,16 +10,20 @@ body {
 
 .low {
   background-color: green;
+  padding: 5px;
 }
 
 .medium {
   background-color: yellow;
+  padding: 5px;
 }
 
 .high {
   background-color: red;
+  padding: 5px;
 }
 
 .extreme {
   background-color: magenta;
+  padding: 5px;
 }
