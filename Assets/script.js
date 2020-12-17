@@ -72,6 +72,34 @@ $(document).ready(function () {
           success: function (uvData) {
             console.log(uvData);
             var cwUV = $("<p>").addClass("text-left");
+            var uvSpan = $("<span>").addClass("text-left");
+            var uvIndex = uvData.current.uvi;
+            tabText.append(cwUV);
+            cwUV.text("UV Index: ");
+            cwUV.append(uvSpan);
+            uvSpan.text(uvIndex);
+
+            if (uvIndex < 5) {
+              uvSpan.addClass("low");
+              console.log("Suncreen recommended.")
+            } else if (uvIndex > 5 && uvIndex < 8) {
+              console.log("Maybe don't stay out long")
+              uvSpan.removeClass("low");
+              uvSpan.addClass("medium");
+              uvSpan.css("color", "black")
+            } else if (uvIndex > 8 && uvIndex < 10) {
+              console.log("Alright, stick to the shade")
+              uvSpan.removeClass("low");
+              uvSpan.removeClass("medium");
+              uvSpan.addClass("high")
+            } else {
+              console.log("you know what, just stay indoors.")
+              uvSpan.removeClass("high");
+              uvSpan.removeClass("medium");
+              uvSpan.removeClass("low");
+              uvSpan.addClass("extreme");
+            }
+            
             //Need to print this below the current weather, inside a color coded box. Need a conditional statement to determine how the value impacts the color of the box.
             //use the code you got from Andrew to write your if/then statement
           },
