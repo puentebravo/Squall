@@ -2,10 +2,10 @@ $(document).ready(function () {
   
   var apiKey = "e5c644d8a9d3a1a36fe10a2c8c8934c4";
 
-  
+// Gets the last city searched for on page load and renders it
   getLast();
 
-
+// Executes API calls and renders the retrieved data to the page
   function renderWeather() {
     var searchText = $("#searchBar").val();
     var queryUrl1 =
@@ -13,7 +13,7 @@ $(document).ready(function () {
       searchText +
       "&units=metric&appid=" +
       apiKey;
-    
+  // Retrieves current weather data for target city, gets the current date/time, then places it on the DOM
     $.ajax({
       url: queryUrl1,
       method: "GET",
@@ -59,7 +59,7 @@ $(document).ready(function () {
         cwWind.text("Wind Speed: " + weatherData.wind.speed + " KPH");
           
         
-      
+      // Retrieves current UVI data for target city, places it beneath the rest of the current weather statistics, then color codes the result low, medium, high, or extreme based on the number returned
         $.ajax({
           url:
             "https://api.openweathermap.org/data/2.5/onecall?lat=" +
@@ -95,7 +95,7 @@ $(document).ready(function () {
               uvSpan.removeClass("low");
               uvSpan.addClass("extreme");
             }
-            
+            // Finally, this AJAX call retrieves weather data in three hour increments for the next five days. The for loop filters this to return only one result for each of the five, translates the UNIX date/time string, and renders it on the page
             $.ajax({
               url:
                 "https://api.openweathermap.org/data/2.5/forecast?q=" +
@@ -147,7 +147,7 @@ $(document).ready(function () {
       renderWeather()
     }
   }
-
+// This click event listener executes the renderWeather function, grabbing the text from the searchbar and saving it in local storage
   $("#searchBtn").click(function (e) {
     e.preventDefault();
     renderWeather();
