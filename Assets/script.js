@@ -1,9 +1,10 @@
 $(document).ready(function () {
+  
   var apiKey = "e5c644d8a9d3a1a36fe10a2c8c8934c4";
-  var cDate = luxon.DateTime.local().toLocaleString({
-    month: "short",
-    day: "2-digit",
-  });
+
+  
+  getLast();
+
 
   function renderWeather() {
     var searchText = $("#searchBar").val();
@@ -43,7 +44,10 @@ $(document).ready(function () {
         navLink.attr("href", "#v-pills-" + searchText);
         navLink.text(weatherData.name);
         tabText.append(cwHeader);
-        cwHeader.text(weatherData.name + ", " + cDate);
+        cwHeader.text(weatherData.name + ", " + luxon.DateTime.local().toLocaleString({
+          month: "short",
+          day: "2-digit",
+        }));
         cwHeader.append(weatherIcon);
         tabText.append(cwTempPara);
         cwTempPara.text("Temperature: " + weatherData.main.temp + "°C");
@@ -53,7 +57,7 @@ $(document).ready(function () {
         cwHumid.text("Humidty: " + weatherData.main.humidity + "%");
         tabText.append(cwWind);
         cwWind.text("Wind Speed: " + weatherData.wind.speed + " KPH");
-          console.log(weatherData)
+          
         
       
         $.ajax({
@@ -102,7 +106,6 @@ $(document).ready(function () {
               success: function (forecast) {
                 var cDeck = $("<div>").addClass("card-deck")
                 tabText.append(cDeck)
-                console.log(forecast);
                for (i = 0; i < forecast.list.length; i += 8) {
                  var forCard = $("<div>").addClass("card")
                  var cBody = $("<div>").addClass("card-body")
@@ -136,10 +139,18 @@ $(document).ready(function () {
       },
     });
   }
+  function getLast (){
+    var storedWeather = localStorage.getItem("lastSearched")
 
+    if (storedWeather !== null) {
+      $("#searchBar").val(storedWeather);
+      renderWeather()
+    }
+  }
 
   $("#searchBtn").click(function (e) {
     e.preventDefault();
     renderWeather();
+    localStorage.setItem("lastSearched", $("#searchBar").val())
   });
 });
