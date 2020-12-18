@@ -4,10 +4,8 @@ $(document).ready(function () {
     month: "short",
     day: "2-digit",
   });
- 
 
-  $("#searchBtn").click(function (e) {
-    e.preventDefault();
+  function renderWeather() {
     var searchText = $("#searchBar").val();
     var queryUrl1 =
       "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -101,24 +99,35 @@ $(document).ready(function () {
                 "&units=metric&appid=" +
                 apiKey,
               method: "GET",
-              success: function (forcast) {
+              success: function (forecast) {
                 var cDeck = $("<div>").addClass("card-deck")
                 tabText.append(cDeck)
-                console.log(forcast);
-               for (i = 0; i < forcast.list.length; i += 8) {
+                console.log(forecast);
+               for (i = 0; i < forecast.list.length; i += 8) {
                  var forCard = $("<div>").addClass("card")
                  var cBody = $("<div>").addClass("card-body")
                  var cTitle = $("<h5>").addClass("card-title")
         
                  var cIcon = $("<img>").attr("src", "http://openweathermap.org/img/wn/" +
-                 forcast.list[i].weather[0].icon +
+                 forecast.list[i].weather[0].icon +
                  "@2x.png" )
                  var tempText = $("<p>").addClass("card-text")
                  var feelText = $("<p>").addClass("card-text")
+                 var humidityText = $("<p>").addClass("card-text")
                  cDeck.append(forCard);
                  forCard.append(cBody);
                  cBody.append(cTitle);
-                 cTitle.text("This is working")
+                 cTitle.text(luxon.DateTime.fromSeconds(forecast.list[i].dt).toLocaleString({
+                   month: "short",
+                   day: "2-digit",
+                 }));
+                 cBody.append(cIcon);
+                 cBody.append(tempText);
+                 tempText.text("Temperature: " + forecast.list[i].main.temp + "°C");
+                 cBody.append(feelText);
+                 feelText.text("Feels Like: " + forecast.list[i].main.temp + "°C");
+                 cBody.append(humidityText);
+                 humidityText.text("Humidity: " + forecast.list[i].main.humidity + "%")
                }
               },
             });
@@ -126,5 +135,11 @@ $(document).ready(function () {
         });
       },
     });
+  }
+
+
+  $("#searchBtn").click(function (e) {
+    e.preventDefault();
+    renderWeather();
   });
 });
