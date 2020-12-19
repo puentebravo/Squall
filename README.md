@@ -22,11 +22,11 @@ Squall is available to clone for personal use, or for deployment to any local in
 
 ## Site Demo
 
-![App Demo]()
+![App Demo](./Assets/Squall.gif)
 
 ## Link to Deployed Site
 
-[Deployed App]()
+[Deployed App](https://puentebravo.github.io/Squall/)
 
 ## Credits
 
