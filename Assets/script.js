@@ -1,6 +1,6 @@
 $(document).ready(function () {
   
-  var apiKey = keyValue;
+  var apiKey = "e5c644d8a9d3a1a36fe10a2c8c8934c4";
 
 // Gets the last city searched for on page load and renders it
   getLast();
